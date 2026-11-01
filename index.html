@@ -4,29 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Town Roblox - Weapon Tier List</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0c0d10;
-      --panel: #131519;
-      --panel-border: #232730;
-      --card-bg: #17191e;
-      --card-border: #242932;
-      --card-hover: #3d4554;
-      
-      --text-main: #e8ecf2;
-      --text-dim: #778190;
-      --text-muted: #434a56;
-
-      --tier-a: #992d2d;
-      --tier-b: #b45f1b;
-      --tier-c: #356e45;
-      --tier-d: #2a5a78;
-      --tier-f: #4a505a;
+      --dark: #202022;
+      --accent: #1c1c1f;
+      --text: #c5c5c5;
     }
 
     * {
@@ -36,209 +19,162 @@
     }
 
     body {
-      background-color: var(--bg);
-      background-image: 
-        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 28px 28px;
-      color: var(--text-main);
-      font-family: "Rajdhani", sans-serif;
-      padding: 32px 20px 60px;
+      background-color: var(--dark);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 24px;
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     header {
-      max-width: 1080px;
-      margin: 0 auto 24px;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 3px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--accent);
     }
 
-    .badge-sub {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 2px;
+    .title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sub-title {
+      font-size: 13px;
+      color: var(--text);
+      opacity: 0.8;
     }
 
     h1 {
-      font-size: 1.7rem;
+      font-size: 24px;
       font-weight: 700;
-      letter-spacing: 1.5px;
-      color: #fff;
-      line-height: 1.1;
+      color: var(--text);
     }
 
-    .segmented-control {
-      display: inline-flex;
-      background: #090a0d;
-      border: 1px solid var(--panel-border);
-      padding: 2px;
-      border-radius: 2px;
+    .controls {
+      display: flex;
+      gap: 8px;
     }
 
     .toggle-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--text-dim);
-      padding: 6px 18px;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: var(--text);
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 6px;
       cursor: pointer;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      border-radius: 2px;
-      transition: all 0.15s ease;
     }
 
     .toggle-btn.active {
-      background: #1e222a;
-      color: #fff;
-      border-color: #323946;
+      background: var(--dark);
+      border-color: var(--text);
     }
 
-    .tier-container {
+    .tier-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      max-width: 1080px;
-      margin: 0 auto;
+      gap: 10px;
     }
 
     .tier-row {
       display: flex;
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 3px;
-      min-height: 98px;
+      background: var(--accent);
+      border-radius: 8px;
+      min-height: 100px;
+      overflow: hidden;
     }
 
     .tier-label {
-      width: 72px;
-      min-width: 72px;
+      width: 80px;
+      min-width: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.2rem;
+      font-size: 28px;
       font-weight: 700;
-      color: #fff;
-      user-select: none;
-      border-right: 1px solid var(--panel-border);
+      color: var(--text);
+      background: var(--accent);
+      border-right: 1px solid var(--dark);
     }
 
-    .tier-A { background: var(--tier-a); }
-    .tier-B { background: var(--tier-b); }
-    .tier-C { background: var(--tier-c); }
-    .tier-D { background: var(--tier-d); }
-    .tier-F { background: var(--tier-f); }
-
-    .tier-cards {
+    .tier-items {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 10px 14px;
+      gap: 10px;
+      padding: 12px;
       align-items: center;
       flex-grow: 1;
-      background: rgba(0, 0, 0, 0.2);
+      background: var(--dark);
     }
 
-    .empty-tier-text {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-left: 6px;
+    .empty-text {
+      font-size: 13px;
+      color: var(--text);
+      opacity: 0.5;
+      padding-left: 8px;
     }
 
     .card {
-      width: 140px;
-      height: 84px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 2px;
-      position: relative;
+      width: 130px;
+      height: 90px;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 6px 8px;
-      transition: border-color 0.15s ease, background 0.15s ease;
     }
 
     .card:hover {
-      border-color: var(--card-hover);
-      background: #1b1e25;
+      border-color: var(--text);
     }
 
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.6rem;
-      color: var(--text-dim);
-    }
-
-    .card-img-wrap {
+    .card img {
       width: 100%;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card-img-wrap img {
-      max-width: 95%;
-      max-height: 95%;
+      height: 52px;
       object-fit: contain;
     }
 
-    .card-footer {
+    .card-info {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid #1f232b;
-      padding-top: 4px;
+      font-size: 12px;
+      color: var(--text);
     }
 
-    .card-title {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-main);
+    .card-name {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      letter-spacing: 0.5px;
+      max-width: 85px;
+      font-weight: 600;
     }
 
-    .rank-pill {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: var(--text-dim);
+    .card-tier {
+      font-size: 11px;
+      opacity: 0.8;
     }
 
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(5, 6, 8, 0.85);
-      backdrop-filter: blur(3px);
+      background: rgba(28, 28, 31, 0.85);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 999;
+      z-index: 100;
       padding: 16px;
     }
 
@@ -246,212 +182,189 @@
       display: flex;
     }
 
-    .detail-card {
+    .modal-window {
       width: 100%;
-      max-width: 420px;
-      background: #121418;
-      border: 1px solid #2d333e;
-      border-radius: 3px;
+      max-width: 400px;
+      background: var(--accent);
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
     }
 
-    .detail-header {
-      padding: 12px 16px;
+    .modal-header {
+      padding: 14px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #16191f;
-      border-bottom: 1px solid #222630;
+      border-bottom: 1px solid var(--dark);
     }
 
-    .detail-title-wrap {
+    .modal-title-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .detail-title {
-      font-size: 1.25rem;
+    .modal-title {
+      font-size: 18px;
       font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.5px;
+      color: var(--text);
     }
 
-    .detail-tier-badge {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.72rem;
+    .modal-badge {
+      font-size: 12px;
       font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 2px;
-      color: #fff;
+      padding: 2px 6px;
+      background: var(--dark);
+      border-radius: 4px;
+      color: var(--text);
     }
 
-    .close-btn {
-      cursor: pointer;
-      color: var(--text-dim);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 1.2rem;
-      line-height: 1;
+    .modal-close {
       background: transparent;
       border: none;
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
     }
 
-    .close-btn:hover {
-      color: #fff;
-    }
-
-    .detail-image {
+    .modal-image {
       width: 100%;
       height: 140px;
-      background: #090a0d;
+      background: var(--dark);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 12px;
-      border-bottom: 1px solid #20242c;
     }
 
-    .detail-image img {
+    .modal-image img {
       max-width: 90%;
       max-height: 90%;
       object-fit: contain;
     }
 
-    .detail-variant-title {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      background: #14171d;
-      padding: 8px 16px;
-      border-bottom: 1px solid #20242c;
-      line-height: 1.4;
+    .modal-variant {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid var(--dark);
     }
 
-    .stats-container {
+    .modal-stats {
       padding: 12px 16px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      max-height: 240px;
+      gap: 8px;
+      max-height: 220px;
       overflow-y: auto;
-      background: #0f1115;
+      background: var(--dark);
     }
 
     .stat-row {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .stat-meta {
       display: flex;
       justify-content: space-between;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.68rem;
-      color: var(--text-dim);
+      font-size: 12px;
+      color: var(--text);
     }
 
-    .stat-val-text {
-      color: #fff;
-      font-weight: 500;
-    }
-
-    .stat-bar-bg {
+    .stat-bar {
       width: 100%;
-      height: 5px;
-      background: #1b1e25;
-      border: 1px solid #242932;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 3px;
+      overflow: hidden;
     }
 
-    .stat-bar-fill {
+    .stat-fill {
       height: 100%;
-      background: #64748b;
-      transition: width 0.2s ease;
+      background: var(--text);
     }
 
-    .total-score-card {
-      margin: 0;
-      background: #15181e;
-      border-top: 1px solid #222630;
-      padding: 10px 16px;
+    .modal-score {
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.75rem;
+      font-size: 14px;
+      font-weight: 600;
+      border-top: 1px solid var(--dark);
     }
 
-    .total-score-num {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .detail-nav {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid #222630;
+    .modal-nav {
+      display: flex;
+      border-top: 1px solid var(--dark);
     }
 
     .nav-btn {
-      background: #111317;
+      flex: 1;
+      background: var(--accent);
       border: none;
-      color: #8b95a5;
-      padding: 10px;
-      font-size: 1rem;
+      color: var(--text);
+      padding: 12px;
+      font-size: 14px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s, color 0.15s;
     }
 
     .nav-btn:hover {
-      background: #1a1e24;
-      color: #fff;
+      background: var(--dark);
     }
 
     .nav-btn:first-child {
-      border-right: 1px solid #222630;
+      border-right: 1px solid var(--dark);
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div>
-      <div class="badge-sub">Town Roblox Armory Tier List</div>
-      <h1>WEAPON TIERS</h1>
-    </div>
-    <div class="segmented-control">
-      <button class="toggle-btn active" id="btn-stock" onclick="setViewMode(0)">Base</button>
-      <button class="toggle-btn" id="btn-kitted" onclick="setViewMode(1)">Attachments</button>
-    </div>
-  </header>
+  <div class="container">
+    <header>
+      <div class="title-group">
+        <span class="sub-title">Town Roblox Armory Tier List</span>
+        <h1>WEAPON TIERS</h1>
+      </div>
+      <div class="controls">
+        <button class="toggle-btn active" id="btn-stock" onclick="setViewMode(0)">Base</button>
+        <button class="toggle-btn" id="btn-kitted" onclick="setViewMode(1)">Attachments</button>
+      </div>
+    </header>
 
-  <div class="tier-container" id="tierContainer"></div>
+    <main class="tier-list" id="tierContainer"></main>
+  </div>
 
   <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-    <div class="detail-card" onclick="event.stopPropagation()">
-      <div class="detail-header">
-        <div class="detail-title-wrap">
-          <span class="detail-title" id="detailTitle">P90</span>
-          <span class="detail-tier-badge" id="detailTierBadge">C</span>
+    <div class="modal-window" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-title" id="detailTitle">P90</span>
+          <span class="modal-badge" id="detailTierBadge">C</span>
         </div>
-        <button class="close-btn" onclick="closeModalDirect()">&times;</button>
+        <button class="modal-close" onclick="closeModalDirect()">&times;</button>
       </div>
-      <div class="detail-image">
-        <img id="detailImg" src="" alt="Gun Preview">
+
+      <div class="modal-image">
+        <img id="detailImg" src="" alt="Weapon">
       </div>
-      <div class="detail-variant-title" id="detailVariantName">Stock Variant</div>
-      <div class="stats-container" id="detailStats"></div>
-      <div class="total-score-card">
-        <span style="color: var(--text-dim);">Combat Rating</span>
-        <span class="total-score-num" id="detailTotalScore">0 / 100</span>
+
+      <div class="modal-variant" id="detailVariantName">P90 (No Attachments)</div>
+
+      <div class="modal-stats" id="detailStats"></div>
+
+      <div class="modal-score">
+        <span>Combat Rating</span>
+        <span id="detailTotalScore">0 / 100</span>
       </div>
-      <div class="detail-nav">
+
+      <div class="modal-nav">
         <button class="nav-btn" onclick="cycleVariant(-1)">&larr;</button>
         <button class="nav-btn" onclick="cycleVariant(1)">&rarr;</button>
       </div>
@@ -481,7 +394,7 @@
             name: "P90 (No Attachments)",
             img: "P90Base.png",
             stats: {
-              damage: 11, fireRate: 14, recoilControl: 11, weight: 7, armorHandling: 5,
+              damage: 11, fireRate: 14, recoilControl: 11, weight: 7, armorHandling: 6,
               reloadSpeed: 5, ammoCount: 3, soundLevel: 2, runSpeed: 4, zombieTest: 4
             }
           },
@@ -489,8 +402,8 @@
             name: "P90 (Heavy Suppressor, Combo Laser, Romeo Sight)",
             img: "P90Attached.png",
             stats: {
-              damage: 11, fireRate: 14, recoilControl: 13, weight: 5, armorHandling: 5,
-              reloadSpeed: 5, ammoCount: 3, soundLevel: 3, runSpeed: 3, zombieTest: 4
+              damage: 11, fireRate: 14, recoilControl: 13, weight: 5, armorHandling: 6,
+              reloadSpeed: 5, ammoCount: 4, soundLevel: 3, runSpeed: 3, zombieTest: 4
             }
           }
         ]
@@ -503,7 +416,7 @@
             name: "AG-18c (No Attachments)",
             img: "AG18c.png",
             stats: {
-              damage: 10, fireRate: 14, recoilControl: 7, weight: 15, armorHandling: 5,
+              damage: 10, fireRate: 14, recoilControl: 7, weight: 15, armorHandling: 6,
               reloadSpeed: 6, ammoCount: 2, soundLevel: 2, runSpeed: 5, zombieTest: 3
             }
           },
@@ -511,7 +424,7 @@
             name: "AG-18c (Oil Filter, Combo Laser, Romeo Sight, Extend Stock)",
             img: "AG18cAttached.png",
             stats: {
-              damage: 10, fireRate: 14, recoilControl: 13, weight: 15, armorHandling: 5,
+              damage: 10, fireRate: 14, recoilControl: 13, weight: 15, armorHandling: 6,
               reloadSpeed: 6, ammoCount: 2, soundLevel: 3, runSpeed: 3, zombieTest: 3
             }
           }
@@ -547,7 +460,7 @@
             name: "Mac-10 (No Attachments)",
             img: "Mac10.png",
             stats: {
-              damage: 10, fireRate: 15, recoilControl: 5, weight: 8, armorHandling: 5,
+              damage: 10, fireRate: 15, recoilControl: 5, weight: 8, armorHandling: 6,
               reloadSpeed: 8, ammoCount: 2, soundLevel: 3, runSpeed: 5, zombieTest: 2
             }
           },
@@ -555,8 +468,8 @@
             name: "Mac-10 (Heavy Suppressor, Combo Laser, Romeo Sight, Hera QCR Front Grip, Extended Stock)",
             img: "Mac10Attached.png",
             stats: {
-              damage: 10, fireRate: 15, recoilControl: 8, weight: 6, armorHandling: 5,
-              reloadSpeed: 8, ammoCount: 2, soundLevel: 4, runSpeed: 3, zombieTest: 3
+              damage: 8, fireRate: 15, recoilControl: 8, weight: 6, armorHandling: 6,
+              reloadSpeed: 8, ammoCount: 3, soundLevel: 4, runSpeed: 3, zombieTest: 3
             }
           }
         ]
@@ -569,7 +482,7 @@
             name: "Maxim 9",
             img: "Maxim9.png",
             stats: {
-              damage: 11, fireRate: 12, recoilControl: 13, weight: 10, armorHandling: 5,
+              damage: 11, fireRate: 12, recoilControl: 13, weight: 10, armorHandling: 6,
               reloadSpeed: 8, ammoCount: 2, soundLevel: 3, runSpeed: 5, zombieTest: 5
             }
           },
@@ -577,7 +490,7 @@
             name: "Maxim 9 (N/A)",
             img: "Maxim9.png",
             stats: {
-              damage: 11, fireRate: 12, recoilControl: 13, weight: 10, armorHandling: 5,
+              damage: 11, fireRate: 12, recoilControl: 13, weight: 10, armorHandling: 6,
               reloadSpeed: 8, ammoCount: 2, soundLevel: 4, runSpeed: 5, zombieTest: 5
             }
           }
@@ -591,16 +504,16 @@
             name: "MP5",
             img: "MP5.png",
             stats: {
-              damage: 9, fireRate: 12, recoilControl: 13, weight: 8, armorHandling: 5,
-              reloadSpeed: 8, ammoCount: 2, soundLevel: 3, runSpeed: 4, zombieTest: 3
+              damage: 9, fireRate: 12, recoilControl: 13, weight: 8, armorHandling: 7,
+              reloadSpeed: 8, ammoCount: 3, soundLevel: 3, runSpeed: 4, zombieTest: 3
             }
           },
           {
             name: "MP5 (Extended Stock, Hera QCR Front Grip, Heavy Suppressor, Combo Laser, Romeo Sight)",
             img: "MP5Attached.png",
             stats: {
-              damage: 9, fireRate: 12, recoilControl: 15, weight: 5, armorHandling: 5,
-              reloadSpeed: 8, ammoCount: 2, soundLevel: 4, runSpeed: 2, zombieTest: 3
+              damage: 9, fireRate: 12, recoilControl: 15, weight: 7, armorHandling: 7,
+              reloadSpeed: 8, ammoCount: 3, soundLevel: 4, runSpeed: 2, zombieTest: 3
             }
           }
         ]
@@ -622,7 +535,7 @@
             img: "TMPAttached.png",
             stats: {
               damage: 9, fireRate: 12, recoilControl: 15, weight: 8, armorHandling: 5,
-              reloadSpeed: 9, ammoCount: 2, soundLevel: 4, runSpeed: 3, zombieTest: 4
+              reloadSpeed: 9, ammoCount: 3, soundLevel: 4, runSpeed: 3, zombieTest: 4
             }
           }
         ]
@@ -657,7 +570,7 @@
             name: "GM6 Lynx",
             img: "GM6.png",
             stats: {
-              damage: 20, fireRate: 8, recoilControl: 1, weight: 2, armorHandling: 8,
+              damage: 20, fireRate: 8, recoilControl: 1, weight: 2, armorHandling: 9,
               reloadSpeed: 1, ammoCount: 1, soundLevel: 3, runSpeed: 5, zombieTest: 2
             }
           },
@@ -665,7 +578,7 @@
             name: "GM6 Lynx (Professional Scope, Bipod, Range Finder)",
             img: "GM6Lynx.png",
             stats: {
-              damage: 20, fireRate: 8, recoilControl: 1, weight: 1, armorHandling: 8,
+              damage: 20, fireRate: 8, recoilControl: 1, weight: 1, armorHandling: 9,
               reloadSpeed: 1, ammoCount: 1, soundLevel: 4, runSpeed: 3, zombieTest: 2
             }
           }
@@ -679,7 +592,7 @@
             name: "AR 10",
             img: "AR10.png",
             stats: {
-              damage: 14, fireRate: 10, recoilControl: 10, weight: 3, armorHandling: 7,
+              damage: 14, fireRate: 10, recoilControl: 10, weight: 3, armorHandling: 8,
               reloadSpeed: 7, ammoCount: 2, soundLevel: 3, runSpeed: 3, zombieTest: 5
             }
           },
@@ -687,7 +600,7 @@
             name: "AR 10 (Romeo Sight, Combo Laser, Hera, Heavy)",
             img: "AR10Attached.png",
             stats: {
-              damage: 14, fireRate: 10, recoilControl: 15, weight: 2, armorHandling: 7,
+              damage: 14, fireRate: 10, recoilControl: 15, weight: 2, armorHandling: 8,
               reloadSpeed: 7, ammoCount: 2, soundLevel: 4, runSpeed: 2, zombieTest: 5
             }
           }
@@ -747,19 +660,19 @@
         row.className = 'tier-row';
 
         const label = document.createElement('div');
-        label.className = `tier-label tier-${tierKey}`;
+        label.className = 'tier-label';
         label.innerText = tierKey;
 
-        const cardsArea = document.createElement('div');
-        cardsArea.className = 'tier-cards';
+        const itemsArea = document.createElement('div');
+        itemsArea.className = 'tier-items';
 
         sortedTiers[tierKey].sort((a, b) => b.score - a.score);
 
         if (sortedTiers[tierKey].length === 0) {
           const emptyNotice = document.createElement('span');
-          emptyNotice.className = 'empty-tier-text';
+          emptyNotice.className = 'empty-text';
           emptyNotice.innerText = 'EMPTY';
-          cardsArea.appendChild(emptyNotice);
+          itemsArea.appendChild(emptyNotice);
         } else {
           sortedTiers[tierKey].forEach(item => {
             const card = document.createElement('div');
@@ -767,24 +680,18 @@
             card.onclick = () => openModal(item.gunIndex, item.variantIndex);
 
             card.innerHTML = `
-              <div class="card-top">
-                <span>${item.tier}</span>
-                <span>${item.score}</span>
-              </div>
-              <div class="card-img-wrap">
-                <img src="${item.image}" alt="${item.name}">
-              </div>
-              <div class="card-footer">
-                <span class="card-title">${item.name}</span>
-                <span class="rank-pill">${item.tier}</span>
+              <img src="${item.image}" alt="${item.name}">
+              <div class="card-info">
+                <span class="card-name">${item.name}</span>
+                <span class="card-tier">${item.tier}</span>
               </div>
             `;
-            cardsArea.appendChild(card);
+            itemsArea.appendChild(card);
           });
         }
 
         row.appendChild(label);
-        row.appendChild(cardsArea);
+        row.appendChild(itemsArea);
         container.appendChild(row);
       });
     }
@@ -824,11 +731,7 @@
       const tier = getTier(score);
 
       document.getElementById('detailTitle').innerText = gun.name;
-      
-      const badge = document.getElementById('detailTierBadge');
-      badge.innerText = tier;
-      badge.className = `detail-tier-badge tier-${tier}`;
-
+      document.getElementById('detailTierBadge').innerText = tier;
       document.getElementById('detailImg').src = variant.img;
       document.getElementById('detailVariantName').innerText = variant.name;
       document.getElementById('detailTotalScore').innerText = `${score} / 100`;
@@ -845,10 +748,10 @@
         row.innerHTML = `
           <div class="stat-meta">
             <span>${cfg.label}</span>
-            <span class="stat-val-text">${val} / ${cfg.max}</span>
+            <span>${val} / ${cfg.max}</span>
           </div>
-          <div class="stat-bar-bg">
-            <div class="stat-bar-fill" style="width: ${pct}%;"></div>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: ${pct}%;"></div>
           </div>
         `;
         statsContainer.appendChild(row);
