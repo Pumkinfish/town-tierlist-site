@@ -7,161 +7,212 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-dark: #121214;
-      --card-bg: #1c1c20;
-      --card-header: #26262c;
-      --text-main: #f4f4f5;
-      --text-muted: #a1a1aa;
-      --border-color: #333338;
-      --accent-gray: #e4e4e7;
+      --bg: #0c0d0f;
+      --panel: #141619;
+      --card-bg: #1a1d21;
+      --card-border: #262a30;
+      --card-hover: #3b424c;
+      --text-main: #f1f3f5;
+      --text-dim: #8b929a;
+      
+      --tier-a: #ef4444;
+      --tier-b: #f97316;
+      --tier-c: #10b981;
+      --tier-d: #0ea5e9;
+      --tier-f: #64748b;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Plus Jakarta Sans", sans-serif;
     }
 
     body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg);
+      background-image: radial-gradient(circle at 50% 0%, #17191d 0%, var(--bg) 70%);
       color: var(--text-main);
-      padding: 32px 24px;
+      padding: 40px 20px;
+      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
     header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+    }
+
+    .badge-sub {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
     }
 
     h1 {
-      font-size: 1.6rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      color: var(--text-main);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
     }
 
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 16px;
+    .segmented-control {
+      display: inline-flex;
+      background: #101214;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid #23272e;
+      margin-top: 18px;
     }
 
     .toggle-btn {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 8px 16px;
-      border-radius: 6px;
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      padding: 7px 20px;
+      border-radius: 7px;
       cursor: pointer;
       font-size: 0.85rem;
-      font-weight: 400;
-      transition: all 0.2s ease;
+      font-weight: 600;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .toggle-btn.active {
-      background-color: var(--accent-gray);
-      color: var(--bg-dark);
-      border-color: var(--accent-gray);
-      font-weight: 500;
+      background: #232830;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
     .tier-container {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      max-width: 1200px;
+      gap: 12px;
+      max-width: 1080px;
       margin: 0 auto;
     }
 
     .tier-row {
       display: flex;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      min-height: 110px;
+      background: var(--panel);
+      border: 1px solid #1e2227;
+      border-radius: 10px;
+      min-height: 96px;
       overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
     .tier-label {
-      width: 70px;
-      min-width: 70px;
-      background: var(--card-header);
+      width: 76px;
+      min-width: 76px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
-      font-weight: 500;
-      color: var(--accent-gray);
-      border-right: 1px solid var(--border-color);
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      user-select: none;
     }
+
+    .tier-A { background: var(--tier-a); }
+    .tier-B { background: var(--tier-b); }
+    .tier-C { background: var(--tier-c); }
+    .tier-D { background: var(--tier-d); }
+    .tier-F { background: var(--tier-f); }
 
     .tier-cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      padding: 12px;
+      gap: 10px;
+      padding: 12px 14px;
       align-items: center;
       flex-grow: 1;
     }
 
+    .empty-tier-text {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #383e47;
+      text-transform: uppercase;
+      margin-left: 8px;
+    }
+
     .card {
-      width: 135px;
+      width: 130px;
+      height: 84px;
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      overflow: hidden;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      position: relative;
       cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.15s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent-gray);
-    }
-
-    .card-title {
-      background: var(--card-header);
-      padding: 7px 6px;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-main);
-      border-bottom: 1px solid var(--border-color);
-      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
-      letter-spacing: 0.2px;
-    }
-
-    .card-image {
-      width: 100%;
-      height: 75px;
-      background: #0d0d0f;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--card-hover);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+
+    .card img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, rgba(16, 18, 21, 0) 0%, rgba(16, 18, 21, 0.95) 80%);
+      padding: 6px 8px 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .card-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90px;
+    }
+
+    .rank-pill {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: #282e36;
+      color: #cbd5e1;
     }
 
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -175,132 +226,182 @@
 
     .detail-card {
       width: 100%;
-      max-width: 340px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
+      max-width: 360px;
+      background: #14171a;
+      border: 1px solid #282d34;
+      border-radius: 14px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 16px 36px rgba(0,0,0,0.6);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      animation: popIn 0.15s ease-out;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .detail-header {
-      background: var(--card-header);
-      padding: 12px 16px;
-      text-align: center;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #20242a;
+    }
+
+    .detail-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .detail-title {
       font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--text-main);
-      border-bottom: 1px solid var(--border-color);
-      position: relative;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .detail-tier-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: #fff;
     }
 
     .close-btn {
-      position: absolute;
-      right: 14px;
-      top: 10px;
       cursor: pointer;
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      font-weight: 300;
+      color: #64748b;
+      font-size: 1.3rem;
+      line-height: 1;
+      transition: color 0.15s;
     }
 
     .close-btn:hover {
-      color: var(--text-main);
+      color: #fff;
     }
 
     .detail-image {
       width: 100%;
-      height: 160px;
-      background: #0d0d0f;
-      border-bottom: 1px solid var(--border-color);
+      height: 150px;
+      background: #0c0e10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border-bottom: 1px solid #20242a;
     }
 
     .detail-image img {
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
     }
 
     .detail-variant-title {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size: 0.75rem;
+      color: var(--text-dim);
       text-align: center;
-      padding: 10px 14px 0 14px;
-      font-weight: 400;
+      padding: 10px 16px 0;
+      font-weight: 500;
     }
 
     .stats-container {
       padding: 12px 18px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      max-height: 250px;
+      gap: 7px;
+      max-height: 240px;
       overflow-y: auto;
     }
 
     .stat-row {
       display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      border-bottom: 1px solid #27272c;
-      padding-bottom: 3px;
+      flex-direction: column;
+      gap: 3px;
     }
 
-    .stat-name {
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
-    .stat-value {
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
-    .total-score-row {
+    .stat-meta {
       display: flex;
       justify-content: space-between;
-      margin-top: 8px;
-      padding-top: 8px;
+      font-size: 0.75rem;
       font-weight: 500;
-      font-size: 0.95rem;
-      border-top: 1px dashed var(--border-color);
+      color: var(--text-dim);
+    }
+
+    .stat-val-text {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .stat-bar-bg {
+      width: 100%;
+      height: 4px;
+      background: #23272e;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      background: #94a3b8;
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    .total-score-card {
+      margin: 10px 18px 14px;
+      background: #1b1f24;
+      border: 1px solid #292f38;
+      padding: 10px 14px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .total-score-num {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
     }
 
     .detail-nav {
       display: flex;
-      border-top: 1px solid var(--border-color);
-      background: var(--card-header);
+      border-top: 1px solid #20242a;
+      background: #111316;
     }
 
     .nav-btn {
       flex: 1;
       background: transparent;
       border: none;
-      color: var(--text-muted);
-      padding: 10px;
+      color: #94a3b8;
+      padding: 12px;
       font-size: 1.1rem;
-      font-weight: 300;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
 
     .nav-btn:hover {
-      background: #2f2f36;
-      color: var(--text-main);
+      background: #1a1e23;
+      color: #fff;
     }
 
     .nav-btn:first-child {
-      border-right: 1px solid var(--border-color);
+      border-right: 1px solid #20242a;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>TOWN ROBLOX WEAPON TIERS</h1>
-    <div class="controls">
+    <div class="badge-sub">Town Roblox // Armory Tier List</div>
+    <h1>WEAPON TIERS</h1>
+    <div class="segmented-control">
       <button class="toggle-btn active" id="btn-stock" onclick="setViewMode(0)">Base</button>
       <button class="toggle-btn" id="btn-kitted" onclick="setViewMode(1)">Attachments</button>
     </div>
@@ -311,7 +412,10 @@
   <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
     <div class="detail-card" onclick="event.stopPropagation()">
       <div class="detail-header">
-        <span id="detailTitle">P90 (C)</span>
+        <div class="detail-title-wrap">
+          <span class="detail-title" id="detailTitle">P90</span>
+          <span class="detail-tier-badge" id="detailTierBadge">C</span>
+        </div>
         <span class="close-btn" onclick="closeModalDirect()">&times;</span>
       </div>
       <div class="detail-image">
@@ -319,25 +423,29 @@
       </div>
       <div class="detail-variant-title" id="detailVariantName">Stock Variant</div>
       <div class="stats-container" id="detailStats"></div>
+      <div class="total-score-card">
+        <span style="color: var(--text-dim);">Combat Rating</span>
+        <span class="total-score-num" id="detailTotalScore">0 / 100</span>
+      </div>
       <div class="detail-nav">
-        <button class="nav-btn" onclick="cycleVariant(-1)">&lt;</button>
-        <button class="nav-btn" onclick="cycleVariant(1)">&gt;</button>
+        <button class="nav-btn" onclick="cycleVariant(-1)">&larr;</button>
+        <button class="nav-btn" onclick="cycleVariant(1)">&rarr;</button>
       </div>
     </div>
   </div>
 
   <script>
     const statConfig = [
-      { key: "damage", label: "Damage (/20)" },
-      { key: "fireRate", label: "Fire Rate (/15)" },
-      { key: "recoilControl", label: "Recoil Control (/15)" },
-      { key: "weight", label: "Weight (/10)" },
-      { key: "armorHandling", label: "Armor Handling (/10)" },
-      { key: "reloadSpeed", label: "Reload Speed (/10)" },
-      { key: "ammoCount", label: "Ammo Count (/5)" },
-      { key: "soundLevel", label: "Sound Level (/5)" },
-      { key: "runSpeed", label: "Run Speed (/5)" },
-      { key: "zombieTest", label: "Zombie Test (/5)" }
+      { key: "damage", label: "Damage", max: 20 },
+      { key: "fireRate", label: "Fire Rate", max: 15 },
+      { key: "recoilControl", label: "Recoil Control", max: 15 },
+      { key: "weight", label: "Weight", max: 10 },
+      { key: "armorHandling", label: "Armor Handling", max: 10 },
+      { key: "reloadSpeed", label: "Reload Speed", max: 10 },
+      { key: "ammoCount", label: "Ammo Count", max: 5 },
+      { key: "soundLevel", label: "Sound Level", max: 5 },
+      { key: "runSpeed", label: "Run Speed", max: 5 },
+      { key: "zombieTest", label: "Zombie Test", max: 5 }
     ];
 
     const weaponsData = [
@@ -560,7 +668,7 @@
             }
           }
         ]
-      },
+      }
     ];
 
     function calcTotalScore(statsObj) {
@@ -615,7 +723,7 @@
         row.className = 'tier-row';
 
         const label = document.createElement('div');
-        label.className = 'tier-label';
+        label.className = `tier-label tier-${tierKey}`;
         label.innerText = tierKey;
 
         const cardsArea = document.createElement('div');
@@ -623,19 +731,27 @@
 
         sortedTiers[tierKey].sort((a, b) => b.score - a.score);
 
-        sortedTiers[tierKey].forEach(item => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.onclick = () => openModal(item.gunIndex, item.variantIndex);
+        if (sortedTiers[tierKey].length === 0) {
+          const emptyNotice = document.createElement('span');
+          emptyNotice.className = 'empty-tier-text';
+          emptyNotice.innerText = 'EMPTY';
+          cardsArea.appendChild(emptyNotice);
+        } else {
+          sortedTiers[tierKey].forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => openModal(item.gunIndex, item.variantIndex);
 
-          card.innerHTML = `
-            <div class="card-title">${item.name} (${item.tier})</div>
-            <div class="card-image">
+            card.innerHTML = `
               <img src="${item.image}" alt="${item.name}">
-            </div>
-          `;
-          cardsArea.appendChild(card);
-        });
+              <div class="card-footer">
+                <span class="card-title">${item.name}</span>
+                <span class="rank-pill">${item.tier}</span>
+              </div>
+            `;
+            cardsArea.appendChild(card);
+          });
+        }
 
         row.appendChild(label);
         row.appendChild(cardsArea);
@@ -673,30 +789,36 @@
       const score = calcTotalScore(variant.stats);
       const tier = getTier(score);
 
-      document.getElementById('detailTitle').innerText = `${gun.name} (${tier})`;
+      document.getElementById('detailTitle').innerText = gun.name;
+      
+      const badge = document.getElementById('detailTierBadge');
+      badge.innerText = tier;
+      badge.className = `detail-tier-badge tier-${tier}`;
+
       document.getElementById('detailImg').src = variant.img;
       document.getElementById('detailVariantName').innerText = variant.name;
+      document.getElementById('detailTotalScore').innerText = `${score} / 100`;
 
       const statsContainer = document.getElementById('detailStats');
       statsContainer.innerHTML = '';
 
-      statConfig.forEach(item => {
+      statConfig.forEach(cfg => {
+        const val = variant.stats[cfg.key] ?? 0;
+        const pct = Math.min(100, Math.round((val / cfg.max) * 100));
+
         const row = document.createElement('div');
         row.className = 'stat-row';
         row.innerHTML = `
-          <span class="stat-name">${item.label}</span>
-          <span class="stat-value">${variant.stats[item.key] ?? 0}</span>
+          <div class="stat-meta">
+            <span>${cfg.label}</span>
+            <span class="stat-val-text">${val} / ${cfg.max}</span>
+          </div>
+          <div class="stat-bar-bg">
+            <div class="stat-bar-fill" style="width: ${pct}%;"></div>
+          </div>
         `;
         statsContainer.appendChild(row);
       });
-
-      const totalRow = document.createElement('div');
-      totalRow.className = 'total-score-row';
-      totalRow.innerHTML = `
-        <span>Total Score:</span>
-        <span>${score} / 100</span>
-      `;
-      statsContainer.appendChild(totalRow);
     }
 
     renderTierList();
