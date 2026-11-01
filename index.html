@@ -442,11 +442,55 @@
             }
           },
           {
-            name: "Mac-10 (N/A)",
+            name: "Maxim 9 (N/A)",
             img: "Maxim9.png",
             stats: {
               damage: 9, fireRate: 12, recoilControl: 13, weight: 10, armorHandling: 5,
-              reloadSpeed: 9, ammoCount: 2, soundLevel: 4, runSpeed: 5, zombieTest: 5
+              reloadSpeed: 8, ammoCount: 2, soundLevel: 4, runSpeed: 5, zombieTest: 5
+            }
+          }
+        ]
+      },
+      {
+        id: "mp5",
+        name: "MP5K",
+        variants: [
+          {
+            name: "MP5",
+            img: "MP5.png",
+            stats: {
+              damage: 7, fireRate: 12, recoilControl: 13, weight: 8, armorHandling: 5,
+              reloadSpeed: 8, ammoCount: 2, soundLevel: 3, runSpeed: 4, zombieTest: 3
+            }
+          },
+          {
+            name: "MP5 (Extended Stock, Hera QCR Front Grip, Heavy Suppressor, Combo Laser, Romeo Sight)",
+            img: "MP5Attached.png",
+            stats: {
+              damage: 7, fireRate: 12, recoilControl: 15, weight: 5, armorHandling: 5,
+              reloadSpeed: 8, ammoCount: 2, soundLevel: 4, runSpeed: 2, zombieTest: 3
+            }
+          }
+        ]
+      },
+      {
+        id: "tmp",
+        name: "TMP",
+        variants: [
+          {
+            name: "TMP",
+            img: "TMp.png",
+            stats: {
+              damage: 7, fireRate: 12, recoilControl: 13, weight: 8, armorHandling: 5,
+              reloadSpeed: 9, ammoCount: 2, soundLevel: 3, runSpeed: 5, zombieTest: 4
+            }
+          },
+          {
+            name: "TMP (Extended Stock, Hera QCR Front Grip, Heavy Suppressor, Combo Laser, Romeo Sight)",
+            img: "TMPAttached.png",
+            stats: {
+              damage: 7, fireRate: 12, recoilControl: 15, weight: 8, armorHandling: 5,
+              reloadSpeed: 9, ammoCount: 2, soundLevel: 4, runSpeed: 3, zombieTest: 4
             }
           }
         ]
@@ -460,7 +504,7 @@
     function getTier(score) {
       if (score >= 90) return 'A';
       if (score >= 75) return 'B';
-      if (score >= 50) return 'C';
+      if (score >= 55) return 'C';
       if (score >= 25) return 'D';
       return 'F';
     }
