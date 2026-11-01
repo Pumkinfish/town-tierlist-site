@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Town Roblox - Weapon Tier List</title>
+  <style>
+    :root {
+      --bg-dark: #121214;
+      --card-bg: #1c1c20;
+      --card-header: #282830;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --border-color: #3f3f46;
+      --accent-gray: #e4e4e7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+      color: var(--text-main);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .toggle-btn {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background-color: var(--accent-gray);
+      color: var(--bg-dark);
+      border-color: var(--accent-gray);
+    }
+
+    .tier-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tier-row {
+      display: flex;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      min-height: 120px;
+      overflow: hidden;
+    }
+
+    .tier-label {
+      width: 80px;
+      min-width: 80px;
+      background: var(--card-header);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-gray);
+      border-right: 1px solid var(--border-color);
+    }
+
+    .tier-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .card {
+      width: 140px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-gray);
+    }
+
+    .card-title {
+      background: var(--card-header);
+      padding: 6px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 75px;
+      object-fit: cover;
+      background: #09090b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .detail-card {
+      width: 100%;
+      max-width: 360px;
+      background: var(--card-bg);
+      border: 1.5px solid var(--accent-gray);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .detail-header {
+      background: var(--card-header);
+      padding: 12px;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    .close-btn:hover {
+      color: var(--text-main);
+    }
+
+    .detail-image {
+      width: 100%;
+      height: 160px;
+      background: #09090b;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .detail-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .detail-variant-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    .stats-container {
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #27272a;
+      padding-bottom: 2px;
+    }
+
+    .stat-name {
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .total-score-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      padding-top: 8px;
+      font-weight: 800;
+      font-size: 1rem;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .detail-nav {
+      display: flex;
+      border-top: 1px solid var(--border-color);
+      background: var(--card-header);
+    }
+
+    .nav-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      padding: 12px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .nav-btn:hover {
+      background: #32323a;
+    }
+
+    .nav-btn:first-child {
+      border-right: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>TOWN ROBLOX WEAPON TIERS</h1>
+    <div class="controls">
+      <button class="toggle-btn active" id="btn-stock" onclick="setViewMode(0)">Stock (No Attachments)</button>
+      <button class="toggle-btn" id="btn-kitted" onclick="setViewMode(1)">Kitted (With Attachments)</button>
+    </div>
+  </header>
+
+  <div class="tier-container" id="tierContainer"></div>
+
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="detail-card" onclick="event.stopPropagation()">
+      <div class="detail-header">
+        <span id="detailTitle">P90 (C)</span>
+        <span class="close-btn" onclick="closeModalDirect()">&times;</span>
+      </div>
+      <div class="detail-image">
+        <img id="detailImg" src="" alt="Gun Preview">
+      </div>
+      <div class="detail-variant-title" id="detailVariantName">Stock Variant</div>
+      <div class="stats-container" id="detailStats"></div>
+      <div class="detail-nav">
+        <button class="nav-btn" onclick="cycleVariant(-1)">&lt;</button>
+        <button class="nav-btn" onclick="cycleVariant(1)">&gt;</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const weaponsData = [
+      {
+        id: "p90",
+        name: "P90",
+        variants: [
+          {
+            variantName: "Stock (No Attachments)",
+            image: "https://placehold.co/400x200/18181b/e4e4e7?text=P90+Stock",
+            stats: {
+              damage: 13,
+              fireRate: 15,
+              recoilControl: 11,
+              weight: 8,
+              armorHandling: 7,
+              reloadSpeed: 6,
+              ammoCount: 5,
+              soundLevel: 1,
+              runSpeed: 4,
+              zombieTest: 4
+            }
+          },
+          {
+            variantName: "Kitted (+Sup, Laser)",
+            image: "https://placehold.co/400x200/18181b/e4e4e7?text=P90+Kitted",
+            stats: {
+              damage: 13,
+              fireRate: 15,
+              recoilControl: 14,
+              weight: 7,
+              armorHandling: 7,
+              reloadSpeed: 6,
+              ammoCount: 5,
+              soundLevel: 5,
+              runSpeed: 4,
+              zombieTest: 5
+            }
+          }
+        ]
+      },
+    ];
+
+    function calcTotalScore(stats) {
+      return Object.values(stats).reduce((sum, val) => sum + val, 0);
+    }
+
+    function getTier(score) {
+      if (score >= 90) return 'A';
+      if (score >= 75) return 'B';
+      if (score >= 50) return 'C';
+      if (score >= 25) return 'D';
+      return 'F';
+    }
+
+    let activeViewMode = 0;
+    let activeGunIndex = 0;
+    let activeVariantIndex = 0;
+
+    const tiers = ['A', 'B', 'C', 'D', 'F'];
+
+    function setViewMode(mode) {
+      activeViewMode = mode;
+      document.getElementById('btn-stock').classList.toggle('active', mode === 0);
+      document.getElementById('btn-kitted').classList.toggle('active', mode === 1);
+      renderTierList();
+    }
+
+    function renderTierList() {
+      const container = document.getElementById('tierContainer');
+      container.innerHTML = '';
+
+      const sortedTiers = { A: [], B: [], C: [], D: [], F: [] };
+
+      weaponsData.forEach((gun, index) => {
+        const variantIdx = Math.min(activeViewMode, gun.variants.length - 1);
+        const variant = gun.variants[variantIdx];
+        const score = calcTotalScore(variant.stats);
+        const tier = getTier(score);
+
+        sortedTiers[tier].push({
+          gunIndex: index,
+          variantIndex: variantIdx,
+          name: gun.name,
+          score: score,
+          tier: tier,
+          image: variant.image
+        });
+      });
+
+      tiers.forEach(tierKey => {
+        const row = document.createElement('div');
+        row.className = 'tier-row';
+
+        const label = document.createElement('div');
+        label.className = 'tier-label';
+        label.innerText = tierKey;
+
+        const cardsArea = document.createElement('div');
+        cardsArea.className = 'tier-cards';
+
+        sortedTiers[tierKey].sort((a, b) => b.score - a.score);
+
+        sortedTiers[tierKey].forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.onclick = () => openModal(item.gunIndex, item.variantIndex);
+
+          card.innerHTML = `
+            <div class="card-title">${item.name} (${item.tier})</div>
+            <div class="card-image">
+              <img src="${item.image}" alt="${item.name}">
+            </div>
+          `;
+          cardsArea.appendChild(card);
+        });
+
+        row.appendChild(label);
+        row.appendChild(cardsArea);
+        container.appendChild(row);
+      });
+    }
+
+    function openModal(gunIdx, variantIdx = 0) {
+      activeGunIndex = gunIdx;
+      activeVariantIndex = variantIdx;
+      updateModalContent();
+      document.getElementById('modalOverlay').classList.add('active');
+    }
+
+    function closeModalDirect() {
+      document.getElementById('modalOverlay').classList.remove('active');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'modalOverlay') {
+        closeModalDirect();
+      }
+    }
+
+    function cycleVariant(direction) {
+      const gun = weaponsData[activeGunIndex];
+      const totalVariants = gun.variants.length;
+      activeVariantIndex = (activeVariantIndex + direction + totalVariants) % totalVariants;
+      updateModalContent();
+    }
+
+    function updateModalContent() {
+      const gun = weaponsData[activeGunIndex];
+      const variant = gun.variants[activeVariantIndex];
+      const score = calcTotalScore(variant.stats);
+      const tier = getTier(score);
+
+      document.getElementById('detailTitle').innerText = `${gun.name} (${tier})`;
+      document.getElementById('detailImg').src = variant.image;
+      document.getElementById('detailVariantName').innerText = variant.variantName;
+
+      const statsContainer = document.getElementById('detailStats');
+      statsContainer.innerHTML = '';
+
+      const labels = {
+        damage: "Damage (/20)",
+        fireRate: "Fire Rate (/15)",
+        recoilControl: "Recoil Control (/15)",
+        weight: "Weight (/10)",
+        armorHandling: "Armor Handling (/10)",
+        reloadSpeed: "Reload Speed (/10)",
+        ammoCount: "Ammo Count (/5)",
+        soundLevel: "Sound Level (/5)",
+        runSpeed: "Run Speed (/5)",
+        zombieTest: "Zombie Test (/5)"
+      };
+
+      for (const [key, value] of Object.entries(variant.stats)) {
+        const row = document.createElement('div');
+        row.className = 'stat-row';
+        row.innerHTML = `
+          <span class="stat-name">${labels[key] || key}</span>
+          <span class="stat-value">${value}</span>
+        `;
+        statsContainer.appendChild(row);
+      }
+
+      const totalRow = document.createElement('div');
+      totalRow.className = 'total-score-row';
+      totalRow.innerHTML = `
+        <span>Total Score:</span>
+        <span>${score} / 100</span>
+      `;
+      statsContainer.appendChild(totalRow);
+    }
+
+    renderTierList();
+  </script>
+</body>
+</html>
