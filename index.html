@@ -7,94 +7,110 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0c0d0f;
-      --panel: #141619;
-      --card-bg: #1a1d21;
-      --card-border: #262a30;
-      --card-hover: #3b424c;
-      --text-main: #f1f3f5;
-      --text-dim: #8b929a;
+      --bg: #0c0d10;
+      --panel: #131519;
+      --panel-border: #232730;
+      --card-bg: #17191e;
+      --card-border: #242932;
+      --card-hover: #3d4554;
       
-      --tier-a: #ef4444;
-      --tier-b: #f97316;
-      --tier-c: #10b981;
-      --tier-d: #0ea5e9;
-      --tier-f: #64748b;
+      --text-main: #e8ecf2;
+      --text-dim: #778190;
+      --text-muted: #434a56;
+
+      --tier-a: #992d2d;
+      --tier-b: #b45f1b;
+      --tier-c: #356e45;
+      --tier-d: #2a5a78;
+      --tier-f: #4a505a;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: "Plus Jakarta Sans", sans-serif;
     }
 
     body {
       background-color: var(--bg);
-      background-image: radial-gradient(circle at 50% 0%, #17191d 0%, var(--bg) 70%);
+      background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: var(--text-main);
-      padding: 40px 20px;
+      font-family: "Rajdhani", sans-serif;
+      padding: 32px 20px 60px;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
     header {
-      text-align: center;
-      margin-bottom: 32px;
+      max-width: 1080px;
+      margin: 0 auto 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 3px;
     }
 
     .badge-sub {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.7rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 8px;
+      margin-bottom: 2px;
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       font-weight: 700;
-      letter-spacing: -0.5px;
+      letter-spacing: 1.5px;
       color: #fff;
+      line-height: 1.1;
     }
 
     .segmented-control {
       display: inline-flex;
-      background: #101214;
-      padding: 4px;
-      border-radius: 10px;
-      border: 1px solid #23272e;
-      margin-top: 18px;
+      background: #090a0d;
+      border: 1px solid var(--panel-border);
+      padding: 2px;
+      border-radius: 2px;
     }
 
     .toggle-btn {
       background: transparent;
-      border: none;
+      border: 1px solid transparent;
       color: var(--text-dim);
-      padding: 7px 20px;
-      border-radius: 7px;
+      padding: 6px 18px;
       cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-radius: 2px;
+      transition: all 0.15s ease;
     }
 
     .toggle-btn.active {
-      background: #232830;
+      background: #1e222a;
       color: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      border-color: #323946;
     }
 
     .tier-container {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
       max-width: 1080px;
       margin: 0 auto;
     }
@@ -102,23 +118,22 @@
     .tier-row {
       display: flex;
       background: var(--panel);
-      border: 1px solid #1e2227;
-      border-radius: 10px;
-      min-height: 96px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      border: 1px solid var(--panel-border);
+      border-radius: 3px;
+      min-height: 98px;
     }
 
     .tier-label {
-      width: 76px;
-      min-width: 76px;
+      width: 72px;
+      min-width: 72px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      font-weight: 800;
+      font-size: 2.2rem;
+      font-weight: 700;
       color: #fff;
       user-select: none;
+      border-right: 1px solid var(--panel-border);
     }
 
     .tier-A { background: var(--tier-a); }
@@ -130,89 +145,96 @@
     .tier-cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      padding: 12px 14px;
+      gap: 8px;
+      padding: 10px 14px;
       align-items: center;
       flex-grow: 1;
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .empty-tier-text {
-      font-size: 0.78rem;
-      font-weight: 600;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
       letter-spacing: 1.5px;
-      color: #383e47;
+      color: var(--text-muted);
       text-transform: uppercase;
-      margin-left: 8px;
+      margin-left: 6px;
     }
 
     .card {
-      width: 130px;
+      width: 140px;
       height: 84px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 8px;
+      border-radius: 2px;
       position: relative;
       cursor: pointer;
-      overflow: hidden;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px 8px;
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
 
     .card:hover {
-      transform: translateY(-3px);
       border-color: var(--card-hover);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      background: #1b1e25;
     }
 
-    .card img {
-      width: 90%;
-      height: 90%;
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.6rem;
+      color: var(--text-dim);
+    }
+
+    .card-img-wrap {
+      width: 100%;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-img-wrap img {
+      max-width: 95%;
+      max-height: 95%;
       object-fit: contain;
-      transition: transform 0.2s ease;
-    }
-
-    .card:hover img {
-      transform: scale(1.05);
     }
 
     .card-footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(180deg, rgba(16, 18, 21, 0) 0%, rgba(16, 18, 21, 0.95) 80%);
-      padding: 6px 8px 4px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
+      border-top: 1px solid #1f232b;
+      padding-top: 4px;
     }
 
     .card-title {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      color: #e2e8f0;
+      color: var(--text-main);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 90px;
+      letter-spacing: 0.5px;
     }
 
     .rank-pill {
+      font-family: "JetBrains Mono", monospace;
       font-size: 0.65rem;
-      font-weight: 700;
-      padding: 1px 4px;
-      border-radius: 4px;
-      background: #282e36;
-      color: #cbd5e1;
+      font-weight: 600;
+      color: var(--text-dim);
     }
 
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(6px);
+      background: rgba(5, 6, 8, 0.85);
+      backdrop-filter: blur(3px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -226,56 +248,54 @@
 
     .detail-card {
       width: 100%;
-      max-width: 360px;
-      background: #14171a;
-      border: 1px solid #282d34;
-      border-radius: 14px;
-      overflow: hidden;
+      max-width: 420px;
+      background: #121418;
+      border: 1px solid #2d333e;
+      border-radius: 3px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-      animation: popIn 0.15s ease-out;
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.96); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
     }
 
     .detail-header {
-      padding: 14px 18px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #20242a;
+      background: #16191f;
+      border-bottom: 1px solid #222630;
     }
 
     .detail-title-wrap {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .detail-title {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: #fff;
+      letter-spacing: 0.5px;
     }
 
     .detail-tier-badge {
-      font-size: 0.75rem;
-      font-weight: 800;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
       padding: 2px 7px;
-      border-radius: 5px;
+      border-radius: 2px;
       color: #fff;
     }
 
     .close-btn {
       cursor: pointer;
-      color: #64748b;
-      font-size: 1.3rem;
+      color: var(--text-dim);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1.2rem;
       line-height: 1;
-      transition: color 0.15s;
+      background: transparent;
+      border: none;
     }
 
     .close-btn:hover {
@@ -284,123 +304,127 @@
 
     .detail-image {
       width: 100%;
-      height: 150px;
-      background: #0c0e10;
+      height: 140px;
+      background: #090a0d;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 12px;
-      border-bottom: 1px solid #20242a;
+      border-bottom: 1px solid #20242c;
     }
 
     .detail-image img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 90%;
+      max-height: 90%;
       object-fit: contain;
     }
 
     .detail-variant-title {
-      font-size: 0.75rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.72rem;
       color: var(--text-dim);
-      text-align: center;
-      padding: 10px 16px 0;
-      font-weight: 500;
+      background: #14171d;
+      padding: 8px 16px;
+      border-bottom: 1px solid #20242c;
+      line-height: 1.4;
     }
 
     .stats-container {
-      padding: 12px 18px;
+      padding: 12px 16px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
       max-height: 240px;
       overflow-y: auto;
+      background: #0f1115;
     }
 
     .stat-row {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
     .stat-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.68rem;
       color: var(--text-dim);
     }
 
     .stat-val-text {
       color: #fff;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .stat-bar-bg {
       width: 100%;
-      height: 4px;
-      background: #23272e;
-      border-radius: 99px;
-      overflow: hidden;
+      height: 5px;
+      background: #1b1e25;
+      border: 1px solid #242932;
     }
 
     .stat-bar-fill {
       height: 100%;
-      background: #94a3b8;
-      border-radius: 99px;
-      transition: width 0.3s ease;
+      background: #64748b;
+      transition: width 0.2s ease;
     }
 
     .total-score-card {
-      margin: 10px 18px 14px;
-      background: #1b1f24;
-      border: 1px solid #292f38;
-      padding: 10px 14px;
-      border-radius: 8px;
+      margin: 0;
+      background: #15181e;
+      border-top: 1px solid #222630;
+      padding: 10px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.75rem;
     }
 
     .total-score-num {
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: #fff;
     }
 
     .detail-nav {
-      display: flex;
-      border-top: 1px solid #20242a;
-      background: #111316;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid #222630;
     }
 
     .nav-btn {
-      flex: 1;
-      background: transparent;
+      background: #111317;
       border: none;
-      color: #94a3b8;
-      padding: 12px;
-      font-size: 1.1rem;
+      color: #8b95a5;
+      padding: 10px;
+      font-size: 1rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: background 0.15s, color 0.15s;
     }
 
     .nav-btn:hover {
-      background: #1a1e23;
+      background: #1a1e24;
       color: #fff;
     }
 
     .nav-btn:first-child {
-      border-right: 1px solid #20242a;
+      border-right: 1px solid #222630;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="badge-sub">Town Roblox // Armory Tier List</div>
-    <h1>WEAPON TIERS</h1>
+    <div>
+      <div class="badge-sub">Town Roblox Armory Tier List</div>
+      <h1>WEAPON TIERS</h1>
+    </div>
     <div class="segmented-control">
       <button class="toggle-btn active" id="btn-stock" onclick="setViewMode(0)">Base</button>
       <button class="toggle-btn" id="btn-kitted" onclick="setViewMode(1)">Attachments</button>
@@ -416,7 +440,7 @@
           <span class="detail-title" id="detailTitle">P90</span>
           <span class="detail-tier-badge" id="detailTierBadge">C</span>
         </div>
-        <span class="close-btn" onclick="closeModalDirect()">&times;</span>
+        <button class="close-btn" onclick="closeModalDirect()">&times;</button>
       </div>
       <div class="detail-image">
         <img id="detailImg" src="" alt="Gun Preview">
@@ -479,7 +503,7 @@
             name: "AG-18c (No Attachments)",
             img: "AG18c.png",
             stats: {
-              damage: 8, fireRate: 14, recoilControl: 7, weight: 15, armorHandling: 5,
+              damage: 10, fireRate: 14, recoilControl: 7, weight: 15, armorHandling: 5,
               reloadSpeed: 6, ammoCount: 2, soundLevel: 2, runSpeed: 5, zombieTest: 3
             }
           },
@@ -531,7 +555,7 @@
             name: "Mac-10 (Heavy Suppressor, Combo Laser, Romeo Sight, Hera QCR Front Grip, Extended Stock)",
             img: "Mac10Attached.png",
             stats: {
-              damage: 8, fireRate: 15, recoilControl: 8, weight: 6, armorHandling: 5,
+              damage: 10, fireRate: 15, recoilControl: 8, weight: 6, armorHandling: 5,
               reloadSpeed: 8, ammoCount: 2, soundLevel: 4, runSpeed: 3, zombieTest: 3
             }
           }
@@ -743,7 +767,13 @@
             card.onclick = () => openModal(item.gunIndex, item.variantIndex);
 
             card.innerHTML = `
-              <img src="${item.image}" alt="${item.name}">
+              <div class="card-top">
+                <span>${item.tier}</span>
+                <span>${item.score}</span>
+              </div>
+              <div class="card-img-wrap">
+                <img src="${item.image}" alt="${item.name}">
+              </div>
               <div class="card-footer">
                 <span class="card-title">${item.name}</span>
                 <span class="rank-pill">${item.tier}</span>
@@ -775,6 +805,10 @@
         closeModalDirect();
       }
     }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModalDirect();
+    });
 
     function cycleVariant(direction) {
       const gun = weaponsData[activeGunIndex];
