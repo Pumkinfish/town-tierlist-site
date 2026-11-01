@@ -227,7 +227,7 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       text-align: center;
-      padding-top: 10px;
+      padding: 10px 14px 0 14px;
       font-weight: 400;
     }
 
@@ -327,49 +327,134 @@
   </div>
 
   <script>
+    const statConfig = [
+      { key: "damage", label: "Damage (/20)" },
+      { key: "fireRate", label: "Fire Rate (/15)" },
+      { key: "recoilControl", label: "Recoil Control (/15)" },
+      { key: "weight", label: "Weight (/10)" },
+      { key: "armorHandling", label: "Armor Handling (/10)" },
+      { key: "reloadSpeed", label: "Reload Speed (/10)" },
+      { key: "ammoCount", label: "Ammo Count (/5)" },
+      { key: "soundLevel", label: "Sound Level (/5)" },
+      { key: "runSpeed", label: "Run Speed (/5)" },
+      { key: "zombieTest", label: "Zombie Test (/5)" }
+    ];
+
     const weaponsData = [
       {
         id: "p90",
         name: "P90",
         variants: [
           {
-            variantName: "P90 (No Attachments)",
-            image: "P90Base.png",
+            name: "P90 (No Attachments)",
+            img: "P90Base.png",
             stats: {
-              damage: 9,
-              fireRate: 14,
-              recoilControl: 11,
-              weight: 7,
-              armorHandling: 5,
-              reloadSpeed: 5,
-              ammoCount: 3,
-              soundLevel: 2,
-              runSpeed: 4,
-              zombieTest: 4
+              damage: 9, fireRate: 14, recoilControl: 11, weight: 7, armorHandling: 5,
+              reloadSpeed: 5, ammoCount: 3, soundLevel: 2, runSpeed: 4, zombieTest: 4
             }
           },
           {
-            variantName: "P90 (Heavy Suppressor, Romeo Sight)",
-            image: "P90Attached.png",
+            name: "P90 (Heavy Suppressor, Combo Laser, Romeo Sight)",
+            img: "P90Attached.png",
             stats: {
-              damage: 9,
-              fireRate: 14,
-              recoilControl: 13,
-              weight: 5,
-              armorHandling: 5,
-              reloadSpeed: 5,
-              ammoCount: 3,
-              soundLevel: 3,
-              runSpeed: 3,
-              zombieTest: 4
+              damage: 9, fireRate: 14, recoilControl: 13, weight: 5, armorHandling: 5,
+              reloadSpeed: 5, ammoCount: 3, soundLevel: 3, runSpeed: 3, zombieTest: 4
+            }
+          }
+        ]
+      },
+      {
+        id: "ag18c",
+        name: "AG-18c",
+        variants: [
+          {
+            name: "AG-18c (No Attachments)",
+            img: "AG18c.png",
+            stats: {
+              damage: 8, fireRate: 14, recoilControl: 7, weight: 15, armorHandling: 5,
+              reloadSpeed: 6, ammoCount: 2, soundLevel: 2, runSpeed: 5, zombieTest: 3
+            }
+          },
+          {
+            name: "AG-18c (Oil Filter, Combo Laser, Romeo Sight, Extend Stock)",
+            img: "AG18cAttached.png",
+            stats: {
+              damage: 8, fireRate: 14, recoilControl: 13, weight: 15, armorHandling: 5,
+              reloadSpeed: 6, ammoCount: 2, soundLevel: 3, runSpeed: 3, zombieTest: 3
+            }
+          }
+        ]
+      },
+      {
+        id: "ag19",
+        name: "AG-19",
+        variants: [
+          {
+            name: "AG-19 (No Attachments)",
+            img: "AG19.png",
+            stats: {
+              damage: 8, fireRate: 14, recoilControl: 7, weight: 15, armorHandling: 5,
+              reloadSpeed: 6, ammoCount: 2, soundLevel: 2, runSpeed: 5, zombieTest: 3
+            }
+          },
+          {
+            name: "AG-19 (Heavy Suppresor, Combo Laser, Romeo Sight)",
+            img: "AG19Attached.png",
+            stats: {
+              damage: 8, fireRate: 14, recoilControl: 13, weight: 15, armorHandling: 5,
+              reloadSpeed: 6, ammoCount: 2, soundLevel: 3, runSpeed: 3, zombieTest: 3
+            }
+          }
+        ]
+      },
+      {
+        id: "mac10",
+        name: "Mac-10",
+        variants: [
+          {
+            name: "Mac-10 (No Attachments)",
+            img: "Mac10.png",
+            stats: {
+              damage: 8, fireRate: 15, recoilControl: 5, weight: 8, armorHandling: 5,
+              reloadSpeed: 8, ammoCount: 2, soundLevel: 3, runSpeed: 5, zombieTest: 2
+            }
+          },
+          {
+            name: "Mac-10 (Heavy Suppressor, Combo Laser, Romeo Sight, Hera QCR Front Grip, Extended Stock)",
+            img: "Mac10Attached.png",
+            stats: {
+              damage: 8, fireRate: 15, recoilControl: 8, weight: 6, armorHandling: 5,
+              reloadSpeed: 8, ammoCount: 2, soundLevel: 4, runSpeed: 3, zombieTest: 3
+            }
+          }
+        ]
+      },
+      {
+        id: "maxim9",
+        name: "Maxim 9",
+        variants: [
+          {
+            name: "Maxim 9",
+            img: "Maxim9.png",
+            stats: {
+              damage: 9, fireRate: 12, recoilControl: 13, weight: 10, armorHandling: 5,
+              reloadSpeed: 8, ammoCount: 2, soundLevel: 3, runSpeed: 5, zombieTest: 5
+            }
+          },
+          {
+            name: "Mac-10 (N/A)",
+            img: "Maxim9.png",
+            stats: {
+              damage: 9, fireRate: 12, recoilControl: 13, weight: 10, armorHandling: 5,
+              reloadSpeed: 9, ammoCount: 2, soundLevel: 4, runSpeed: 5, zombieTest: 5
             }
           }
         ]
       },
     ];
 
-    function calcTotalScore(stats) {
-      return Object.values(stats).reduce((sum, val) => sum + val, 0);
+    function calcTotalScore(statsObj) {
+      return Object.values(statsObj).reduce((sum, val) => sum + val, 0);
     }
 
     function getTier(score) {
@@ -411,7 +496,7 @@
           name: gun.name,
           score: score,
           tier: tier,
-          image: variant.image
+          image: variant.img
         });
       });
 
@@ -479,34 +564,21 @@
       const tier = getTier(score);
 
       document.getElementById('detailTitle').innerText = `${gun.name} (${tier})`;
-      document.getElementById('detailImg').src = variant.image;
-      document.getElementById('detailVariantName').innerText = variant.variantName;
+      document.getElementById('detailImg').src = variant.img;
+      document.getElementById('detailVariantName').innerText = variant.name;
 
       const statsContainer = document.getElementById('detailStats');
       statsContainer.innerHTML = '';
 
-      const labels = {
-        damage: "Damage (/20)",
-        fireRate: "Fire Rate (/15)",
-        recoilControl: "Recoil Control (/15)",
-        weight: "Weight (/10)",
-        armorHandling: "Armor Handling (/10)",
-        reloadSpeed: "Reload Speed (/10)",
-        ammoCount: "Ammo Count (/5)",
-        soundLevel: "Sound Level (/5)",
-        runSpeed: "Run Speed (/5)",
-        zombieTest: "Zombie Test (/5)"
-      };
-
-      for (const [key, value] of Object.entries(variant.stats)) {
+      statConfig.forEach(item => {
         const row = document.createElement('div');
         row.className = 'stat-row';
         row.innerHTML = `
-          <span class="stat-name">${labels[key] || key}</span>
-          <span class="stat-value">${value}</span>
+          <span class="stat-name">${item.label}</span>
+          <span class="stat-value">${variant.stats[item.key] ?? 0}</span>
         `;
         statsContainer.appendChild(row);
-      }
+      });
 
       const totalRow = document.createElement('div');
       totalRow.className = 'total-score-row';
